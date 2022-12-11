@@ -69,7 +69,7 @@ fn parse_crates(lines: &[&str]) -> Vec<Vec<char>> {
                 .nth(1)
                 .expect("Invalid crate format");
 
-            if ' ' == crate_char {
+            if crate_char == ' ' {
                 continue;
             }
 
