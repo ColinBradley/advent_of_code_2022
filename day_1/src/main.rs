@@ -10,10 +10,7 @@ fn main() {
 
     let crate_stacks = solve(&value, true);
 
-    let last_crates: String = get_last_crates_from_stacks(&crate_stacks)
-        .iter()
-        .copied()
-        .collect();
+    let last_crates: String = get_last_crates_from_stacks(&crate_stacks);
 
     println!("{last_crates}");
 }
@@ -107,10 +104,10 @@ fn parse_commands(lines: &[&str]) -> Vec<Command> {
         .collect()
 }
 
-fn get_last_crates_from_stacks(crate_stacks: &[Vec<char>]) -> Vec<&char> {
+fn get_last_crates_from_stacks(crate_stacks: &[Vec<char>]) -> String {
     crate_stacks
         .iter()
-        .map(|crates| crates.last().unwrap())
+        .map(|crates| *crates.last().unwrap())
         .collect()
 }
 
@@ -129,9 +126,7 @@ mod tests {
         let test_content = include_str!("../test_input.txt");
         let crate_stacks = solve(test_content, false);
 
-        assert_eq!(crate_stacks.get(0).unwrap().last().unwrap(), &'C');
-        assert_eq!(crate_stacks.get(1).unwrap().last().unwrap(), &'M');
-        assert_eq!(crate_stacks.get(2).unwrap().last().unwrap(), &'Z');
+        assert_eq!(get_last_crates_from_stacks(&crate_stacks), "CMZ");
     }
 
     #[test]
@@ -139,8 +134,6 @@ mod tests {
         let test_content = include_str!("../test_input.txt");
         let crate_stacks = solve(test_content, true);
 
-        assert_eq!(crate_stacks.get(0).unwrap().last().unwrap(), &'M');
-        assert_eq!(crate_stacks.get(1).unwrap().last().unwrap(), &'C');
-        assert_eq!(crate_stacks.get(2).unwrap().last().unwrap(), &'D');
+        assert_eq!(get_last_crates_from_stacks(&crate_stacks), "MCD");
     }
 }
